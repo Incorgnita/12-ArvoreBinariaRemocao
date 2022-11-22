@@ -241,40 +241,83 @@ void removerElementoArvore(NO* no, int valor) {
 		cout << "Elemento nao encontrado \n";
 		return;
 	}
-
-
 	// caso 1: sem filhos	
-	
-
-	// caso 2: um filho	
-	
-
-	// caso 3: dois filhos
-
-	// procura o elmento mais a esquerda da sub-arvore da direita
-	NO* sucessor = atual->dir;
-	NO* paiSucessor = atual;
-	while (sucessor->esq != NULL) {
-		paiSucessor = sucessor;
-		sucessor = sucessor->esq;
-	}
-
-	// copia o valor do sucessor para o no atual
-	atual->valor = sucessor->valor;
-
-	// se existir uma sub-arvore a direita do sucessor , entao
-	// ela deve ser ligada ao pai do sucessor
-	if (sucessor->dir != NULL)
+	if (pai == NULL)
 	{
-		paiSucessor->esq = sucessor->dir;
+		free(raiz);
+		return;
 	}
-	else {
-		paiSucessor->esq = NULL;
+	else if (atual->dir == NULL && atual->esq == NULL)
+	{
+
+		if (pai->esq == atual)
+		{
+			pai->esq = NULL;
+		}
+		else
+		{
+			pai->dir = NULL;
+		}
+
+		free(atual);
 	}
+	// caso 2: um filho	
+	else if (atual->dir == NULL || atual->esq == NULL)
+	{
+		if (atual == pai->dir)
+		{
+			if (atual->dir != NULL)
+			{
+				pai->dir = atual->dir;
+			}
+			else 
+			{
+				pai->dir = atual->esq;
+			}
+		}
+		else
+		{
+			if (atual->esq != NULL)
+			{
+				pai->esq = atual->esq;
+			}
+			else
+			{
+				pai->esq = atual->dir;
+			}
+		}
+		free(atual);
+		return;
 
-	//libera memoria
-	free(sucessor);
+	}
+	// caso 3: dois filhos	
+	else
+	{
+		// procura o elmento mais a esquerda da sub-arvore da direita
+		NO* sucessor = atual->dir;
+		NO* paiSucessor = atual;
+		while (sucessor->esq != NULL) {
+			paiSucessor = sucessor;
+			sucessor = sucessor->esq;
+		}
 
+		// copia o valor do sucessor para o no atual
+		atual->valor = sucessor->valor;
+
+		// se existir uma sub-arvore a direita do sucessor , entao
+		// ela deve ser ligada ao pai do sucessor
+		if (sucessor->dir != NULL)
+		{
+			paiSucessor->esq = sucessor->dir;
+		}
+		else {
+			paiSucessor->esq = NULL;
+		}
+
+		//libera memoria
+		free(sucessor);
+
+	}
 
 }
 

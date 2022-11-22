@@ -256,7 +256,7 @@ void removerElementoArvore(NO* no, int valor) {
 		}
 		else
 		{
-			pai->dir = NULL;
+			pai->dir = NULL;   
 		}
 
 		free(atual);

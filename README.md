@@ -1,3 +1,6 @@
+#Nome: Lucas Gradilone email: lucasgradilone@gmail.com
+disclamer: projeto feito no pc da fatec, as credenciais estão erradas
+
 # Arvores (remoção de  elemento)
 ---
 
